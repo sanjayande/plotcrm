@@ -1,0 +1,1 @@
+"""PlotCRM FastAPI backend package."""
