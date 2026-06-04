@@ -5,8 +5,8 @@ const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
-// Configure the backend API base url
-axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+// Dev: empty base URL → Vite proxies /api to the backend. Prod: set VITE_API_BASE_URL.
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || '';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -45,7 +45,19 @@ export const AuthProvider = ({ children }) => {
       setUser(userData);
       return { success: true };
     } catch (err) {
-      const errorMsg = err.response?.data?.detail || "Invalid email or password";
+      if (!err.response) {
+        return {
+          success: false,
+          error: 'Cannot reach the server. Start the backend (port 8000) and try again.',
+        };
+      }
+      const detail = err.response?.data?.detail;
+      const errorMsg =
+        typeof detail === 'string'
+          ? detail
+          : Array.isArray(detail)
+            ? detail.map((d) => d.msg).join(', ')
+            : 'Invalid email or password';
       return { success: false, error: errorMsg };
     }
   };

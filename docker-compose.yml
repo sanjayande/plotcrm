@@ -1,0 +1,21 @@
+# Local production-style stack: docker compose up --build
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: backend/.env
+        required: false
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8000
+      DATABASE_URL: sqlite:///./data/plotcrm.db
+      FRONTEND_URL: http://localhost:5173
+    volumes:
+      - plotcrm-db:/app/data
+      - plotcrm-static:/app/backend/static
+
+volumes:
+  plotcrm-db:
+  plotcrm-static:

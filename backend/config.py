@@ -31,6 +31,29 @@ class Settings:
 
 settings = Settings()
 
+
+def get_cors_origins() -> list[str]:
+    """Allowed browser origins for API requests (dev + production)."""
+    origins = [
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        settings.FRONTEND_URL,
+        settings.FRONTEND_BASE_URL,
+    ]
+    extra = os.getenv("CORS_ORIGINS", "")
+    if extra:
+        origins.extend(o.strip() for o in extra.split(",") if o.strip())
+    seen: set[str] = set()
+    unique: list[str] = []
+    for origin in origins:
+        if origin and origin not in seen:
+            seen.add(origin)
+            unique.append(origin)
+    return unique
+
+
 # Create the upload directory path if it does not exist
 settings.UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 settings.BROCHURE_DIR.mkdir(parents=True, exist_ok=True)

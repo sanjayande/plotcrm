@@ -32,6 +32,7 @@ export const buildWhatsAppMessage = (plot, agent = {}) => {
     `📞 *Interested?* Contact for a site visit:\n` +
     `👤 *${agentName}*\n` +
     (agentPhone ? `📱 ${agentPhone}\n` : '') +
+    `\n🔗 *View Details Online:*\n${window.location.origin}/plots/${plot.id}\n` +
     `\n_Message sent via PlotCRM_`
   );
 };

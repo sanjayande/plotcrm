@@ -21,7 +21,10 @@ yarn-error.log*
 # Database
 *.db
 *.sqlite3
+data/
 
 # OS
 .DS_Store
 Thumbs.db
+
+.vercel

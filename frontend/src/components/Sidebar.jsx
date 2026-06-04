@@ -27,7 +27,7 @@ const Sidebar = () => {
 
   const { t } = useLanguage();
   const navItems = [
-    { name: t('dashboard'), path: '/', icon: LayoutDashboard },
+    { name: t('dashboard'), path: '/dashboard', icon: LayoutDashboard },
     { name: t('plots'), path: '/plots', icon: Map },
     { name: t('customers'), path: '/customers', icon: Users },
     { name: t('siteVisits'), path: '/site-visits', icon: Calendar },

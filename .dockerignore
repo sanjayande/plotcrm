@@ -1,0 +1,9 @@
+frontend/
+backend/venv/
+**/__pycache__/
+**/*.pyc
+.git/
+.env
+backend/.env
+*.db
+data/

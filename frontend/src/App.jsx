@@ -14,6 +14,7 @@ import Customers from './pages/Customers';
 import CustomerDetail from './pages/CustomerDetail';
 import SiteVisits from './pages/SiteVisits';
 import Analytics from './pages/Analytics';
+import Landing from './pages/Landing';
 import AIChatbot from './components/AIChatbot';
 
 /* Layout wrapper — sidebar + content area for authenticated pages */
@@ -47,7 +48,7 @@ const PublicRoute = ({ children }) => {
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   return children;
@@ -80,12 +81,15 @@ function App() {
         />
 
         <Routes>
+          {/* Public marketing site */}
+          <Route path="/" element={<Landing />} />
+
           {/* Auth pages — public only */}
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
 
           {/* Protected dashboard pages */}
-          <Route path="/" element={<ProtectedRoute><AppLayout><Dashboard /></AppLayout></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute><AppLayout><Dashboard /></AppLayout></ProtectedRoute>} />
           <Route path="/plots" element={<ProtectedRoute><AppLayout><Plots /></AppLayout></ProtectedRoute>} />
           <Route path="/plots/:id" element={<ProtectedRoute><AppLayout><PlotDetail /></AppLayout></ProtectedRoute>} />
           <Route path="/customers" element={<ProtectedRoute><AppLayout><Customers /></AppLayout></ProtectedRoute>} />
