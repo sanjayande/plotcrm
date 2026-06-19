@@ -7,7 +7,6 @@ import VoiceInput from '../components/assistant/VoiceInput';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const AIAssistant = () => {
   const { t, language, setLanguage } = useLanguage();
@@ -41,7 +40,7 @@ const AIAssistant = () => {
 
     try {
       const response = await axios.post(
-        `${API_URL}/api/assistant/chat`,
+        '/api/assistant/chat',
         {
           message: text,
           history: messages.slice(-10), // Send last 10 messages for context
