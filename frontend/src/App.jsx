@@ -16,6 +16,7 @@ import SiteVisits from './pages/SiteVisits';
 import Analytics from './pages/Analytics';
 import Landing from './pages/Landing';
 import AIChatbot from './components/AIChatbot';
+import AIAssistant from './pages/AIAssistant';
 
 /* Layout wrapper — sidebar + content area for authenticated pages */
 const AppLayout = ({ children }) => {
@@ -96,6 +97,7 @@ function App() {
           <Route path="/customers/:id" element={<ProtectedRoute><AppLayout><CustomerDetail /></AppLayout></ProtectedRoute>} />
           <Route path="/site-visits" element={<ProtectedRoute><AppLayout><SiteVisits /></AppLayout></ProtectedRoute>} />
           <Route path="/analytics" element={<ProtectedRoute><AppLayout><Analytics /></AppLayout></ProtectedRoute>} />
+          <Route path="/ai-assistant" element={<ProtectedRoute><AppLayout><AIAssistant /></AppLayout></ProtectedRoute>} />
 
           {/* Catch-all fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />

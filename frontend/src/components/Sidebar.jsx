@@ -12,6 +12,7 @@ import {
   Building2,
   Calendar,
   BarChart3,
+  Bot
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -28,6 +29,7 @@ const Sidebar = () => {
   const { t } = useLanguage();
   const navItems = [
     { name: t('dashboard'), path: '/dashboard', icon: LayoutDashboard },
+    { name: '🤖 AI Assistant', path: '/ai-assistant', icon: Bot },
     { name: t('plots'), path: '/plots', icon: Map },
     { name: t('customers'), path: '/customers', icon: Users },
     { name: t('siteVisits'), path: '/site-visits', icon: Calendar },

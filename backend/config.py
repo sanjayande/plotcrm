@@ -8,11 +8,26 @@ BASE_DIR = Path(__file__).resolve().parent
 # Load environment variables from backend/.env
 load_dotenv(dotenv_path=BASE_DIR / ".env")
 
+
+def _resolve_db_url(url: str) -> str:
+    """Resolve relative SQLite database paths to be absolute, relative to BASE_DIR."""
+    if url.startswith("sqlite:///"):
+        path_str = url.replace("sqlite:///", "", 1)
+        if path_str in (":memory:", ""):
+            return url
+        # If it's already an absolute path, leave it
+        is_abs = path_str.startswith("/") or path_str.startswith("\\") or (len(path_str) > 1 and path_str[1] == ":")
+        if not is_abs:
+            resolved_path = (BASE_DIR / path_str).resolve()
+            return f"sqlite:///{resolved_path.as_posix()}"
+    return url
+
+
 class Settings:
     PROJECT_NAME: str = "PlotCRM"
     PORT: int = int(os.getenv("PORT", 8000))
     HOST: str = os.getenv("HOST", "0.0.0.0")
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./plotcrm.db")
+    DATABASE_URL: str = _resolve_db_url(os.getenv("DATABASE_URL", "sqlite:///./plotcrm.db"))
     JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "9a3f2b6e1c7d8a9f0e2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f")
     JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM", "HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 1440))

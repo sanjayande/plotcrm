@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -6,7 +10,7 @@ from backend.config import settings, get_cors_origins
 from backend.database import engine
 from backend.models import Base
 from backend.utils.migrate import run_migrations
-from backend.routes import auth, plots, customers, dashboard, search, site_visits, analytics, notifications, brochure, chat, compare
+from backend.routes import auth, plots, customers, dashboard, search, site_visits, analytics, notifications, brochure, chat, compare, assistant
 
 Base.metadata.create_all(bind=engine)
 run_migrations()
@@ -31,6 +35,7 @@ app.mount("/static", StaticFiles(directory=str(static_root)), name="static")
 app.include_router(auth.router)
 app.include_router(compare.router)
 app.include_router(chat.router)
+app.include_router(assistant.router)
 app.include_router(plots.router)
 app.include_router(brochure.brochure_router)
 app.include_router(brochure.legacy_router)
