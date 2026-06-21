@@ -54,6 +54,8 @@ def get_cors_origins() -> list[str]:
         "http://127.0.0.1:5173",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "https://plotcrm.vercel.app",
+        "https://plotcrm-web.vercel.app",
         settings.FRONTEND_URL,
         settings.FRONTEND_BASE_URL,
     ]
