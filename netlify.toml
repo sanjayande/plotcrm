@@ -1,0 +1,5 @@
+# Netlify root configuration for PlotCRM monorepo
+# This automatically tells Netlify to use the 'frontend' folder as the build context.
+
+[build]
+  base = "frontend"
